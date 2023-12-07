@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "musify-node",
   "version": "1.0.0",
   "description": "Node.js HTTP web server for the musify application",
