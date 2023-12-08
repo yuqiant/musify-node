@@ -1,43 +1,43 @@
-import express from "express";
-import mongoose from "mongoose";
+import "dotenv/config";
+import session from "express-session";
+import express from 'express';
 import cors from "cors";
-import SongRoutes from "./songs/routes.js";
-
-// const express = require('express');
-const app = express();
-const port = 4000;
-
-// mongoose.connect(CONNECTION_STRING);
+import mongoose from "mongoose";
+import UserRoutes from "./users/routes.js";
 mongoose.connect("mongodb://127.0.0.1:27017/musify");
 
-// app.use(cors({
-//     credentials: true,
-//     origin: process.env.FRONTEND_URL
-// }));
-app.use(express.json())
-app.use(cors());
-// app.post('/api/search', (req, res) => {
-//     const { searchTerm, searchType } = req.body;
+// import "dotenv/config";
+// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas';
+// mongoose.connect(CONNECTION_STRING);
+const app = express();
+app.use(cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 
-//     // Implement your search logic here.
-//     // This could be a database query or some other search operation.
+  
+app.use(express.json());
 
-//     // For example purposes, let's assume the search returns an array of results.
-//     const searchResults = performSearch(searchTerm, searchType);
+const sessionOptions = {
+  secret: "any string",
+  resave: false,
+  saveUninitialized: false,
+};
+app.use(
+  session(sessionOptions)
+);
+if (process.env.NODE_ENV !== "development") {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie = {
+    sameSite: "none",
+    secure: true,
+  };
+}
+app.use(session(sessionOptions));
 
-//     // Send the search results back to the client
-//     res.json(searchResults);
-// });
 
-// function performSearch(searchTerm, searchType) {
-//     // Replace this with actual search logic
-//     return [
-//         // Mock search results
-//         { title: "Result 1", description: "Description of result 1" },
-//         // ... more results
-//     ];
-// }
+UserRoutes(app);
+app.listen(process.env.PORT || 4000);
 
-SongRoutes(app);
-
-app.listen(4000)
