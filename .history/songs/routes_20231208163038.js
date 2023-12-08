@@ -32,8 +32,6 @@ function SongRoutes(app) {
             res.status(500).send('Internal Server Error');
         }
     };
-    app.get("/details/:id", findSongByIdHandler);
-
 
 
     // app.get("/api/songs/:songName", findSongByName);
@@ -66,7 +64,8 @@ function SongRoutes(app) {
 
 
 
-
+    app.get("/details/:id", findSongByIdHandler);
+    
     );
 
 

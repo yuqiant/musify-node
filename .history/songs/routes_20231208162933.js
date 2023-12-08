@@ -19,23 +19,6 @@ function SongRoutes(app) {
     }
 
 
-    const findSongByIdHandler = async (req, res) => {
-        try {
-            const songId = req.params.id;
-            const song = await dao.findSongById(songId);
-            if (song) {
-                res.json(song);
-            } else {
-                res.status(404).send('Song not found');
-            }
-        } catch (error) {
-            res.status(500).send('Internal Server Error');
-        }
-    };
-    app.get("/details/:id", findSongByIdHandler);
-
-
-
     // app.get("/api/songs/:songName", findSongByName);
     app.get("/search", async (req, res) => {
         try {
@@ -63,10 +46,24 @@ function SongRoutes(app) {
             res.status(500).send('Internal Server Error');
         }
     }
+    
+    
+    const findSongByIdHandler = async (req, res) => {
+        try {
+            const songId = req.params.id;
+            const song = await dao.findSongById(songId);
+            if (song) {
+                res.json(song);
+            } else {
+                res.status(404).send('Song not found');
+            }
+        } catch (error) {
+            res.status(500).send('Internal Server Error');
+        }
+    };
 
-
-
-
+    app.get("/details/:id", findSongByIdHandler);
+    
     );
 
 
