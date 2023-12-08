@@ -1,0 +1,12 @@
+[
+    {
+        "_id": {
+            "$oid": "6570daa250ce10b0d12df3a1"
+        },
+        "songName": "Imagine",
+        "artistName": "John Lennon",
+        "albumName": "Imagine",
+        "releasedYear": "2001",
+        "Genre": "Pop"
+    }
+]
