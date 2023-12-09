@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
-const playlistSchema = new mongoose.Schema({
+const playlistSchema = new Schema({
   name: String,
   songs: [{ type: Schema.Types.ObjectId, ref: 'songs' }] // 假设您有一个 Song 模型
 });
@@ -17,7 +16,6 @@ const userSchema = new mongoose.Schema({
     enum: ["STUDENT", "FACULTY", "ADMIN", "USER"],
     default: "USER"
   },
-  playlists: [playlistSchema]
 },
   { collection: "users" });
 export default userSchema;

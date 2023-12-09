@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 const playlistSchema = new mongoose.Schema({
   name: String,
   songs: [{ type: Schema.Types.ObjectId, ref: 'songs' }] // 假设您有一个 Song 模型

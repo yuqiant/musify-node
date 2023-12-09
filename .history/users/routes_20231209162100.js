@@ -75,19 +75,6 @@ function UserRoutes(app) {
     }
   };
 
-  const findUserPlaylists = async (req, res) => {
-    try {
-      const userId = req.params.userId;
-      const user = await dao.findUserById(userId);
-      if (!user) {
-        return res.status(404).send('User not found');
-      }
-      res.json(user.playlists);
-    } catch (error) {
-      res.status(500).send('Error fetching playlists: ' + error.message);
-    }
-  };
-
 
 
   app.post("/api/users", createUser);
@@ -99,7 +86,5 @@ function UserRoutes(app) {
   app.post("/api/users/signin", signin);
   app.post("/api/users/signout", signout);
   app.post("/api/users/account", account);
-  app.get("/api/users/:userId/playlists", findUserPlaylists);
-
 }
 export default UserRoutes;
