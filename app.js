@@ -17,7 +17,14 @@ mongoose.connect("mongodb://127.0.0.1:27017/musify");
 //     origin: process.env.FRONTEND_URL
 // }));
 app.use(express.json())
-app.use(cors());
+// @@ YQ
+// app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // or the specific origin you want to allow
+  credentials: true, // to allow cookies and sessions
+};
+app.use(cors(corsOptions));
 
 // @@ FRANK
 // app.use(cors({
