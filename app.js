@@ -2,8 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import SongRoutes from "./songs/routes.js";
+import UserRoutes from "./users/routes.js";
+import "dotenv/config";
+import session from "express-session";
 
-// const express = require('express');
 const app = express();
 const port = 4000;
 
@@ -16,28 +18,33 @@ mongoose.connect("mongodb://127.0.0.1:27017/musify");
 // }));
 app.use(express.json())
 app.use(cors());
-// app.post('/api/search', (req, res) => {
-//     const { searchTerm, searchType } = req.body;
 
-//     // Implement your search logic here.
-//     // This could be a database query or some other search operation.
+// @@ FRANK
+// app.use(cors({
+//     credentials: true,
+//     origin: process.env.FRONTEND_URL,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+//   }));
 
-//     // For example purposes, let's assume the search returns an array of results.
-//     const searchResults = performSearch(searchTerm, searchType);
-
-//     // Send the search results back to the client
-//     res.json(searchResults);
-// });
-
-// function performSearch(searchTerm, searchType) {
-//     // Replace this with actual search logic
-//     return [
-//         // Mock search results
-//         { title: "Result 1", description: "Description of result 1" },
-//         // ... more results
-//     ];
-// }
+const sessionOptions = {
+    secret: "any string",
+    resave: false,
+    saveUninitialized: false,
+  };
+  app.use(
+    session(sessionOptions)
+  );
+  if (process.env.NODE_ENV !== "development") {
+    sessionOptions.proxy = true;
+    sessionOptions.cookie = {
+      sameSite: "none",
+      secure: true,
+    };
+  }
+  app.use(session(sessionOptions))
 
 SongRoutes(app);
+UserRoutes(app);
 
-app.listen(4000)
+app.listen(process.env.PORT || 4000);

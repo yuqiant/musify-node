@@ -1,0 +1,26 @@
+{
+    "_id": {
+      "$oid": "654ffdd3870c092d5441bc88"
+    },
+    "username": "iron_man",
+    "password": "stark123",
+    "firstName": "Tony",
+    "lastName": "Stark",
+    "email": "tony@stark.com",
+    "dob": {
+      "$date": "1970-05-29T00:00:00.000Z"
+    },
+    "role": "STUDENT",
+    "playlists": [
+      {
+        "songs": [
+          {
+            "$oid": "234567890abcdef123456789"
+          },
+          {
+            "$oid": "9876543210fedcba98765432"
+          }
+        ]
+      }
+    ]
+  }
