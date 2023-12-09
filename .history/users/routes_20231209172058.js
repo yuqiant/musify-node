@@ -79,8 +79,8 @@ function UserRoutes(app) {
     try {
       const userId = req.params.userId;
       const user = await dao.findUserById(userId);
-      console.log("backend user", user);
-      console.log("backend userid", userId);
+      console.log("backend user", user)
+      console.log("backend userid", userId)
       if (!user) {
         return res.status(404).send('User not found');
       }
@@ -101,7 +101,7 @@ function UserRoutes(app) {
   app.post("/api/users/signin", signin);
   app.post("/api/users/signout", signout);
   app.post("/api/users/account", account);
-  app.get("/users/:userId/playlists", findUserPlaylists);
+  app.get("/api/users/:userId/playlists", findUserPlaylists);
 
 }
 export default UserRoutes;
