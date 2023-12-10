@@ -1,18 +1,11 @@
-import mongoose from 'mongoose';
-
-const { Schema } = mongoose;
-
-const songSchema = new Schema({
-  songName: String,
-  // Add other song properties (artistName, albumName, releasedYear, Genre) as needed
-});
-
-const playlistSchema = new Schema({
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
+const playlistSchema = new mongoose.Schema({
   name: String,
-  songs: [songSchema], // Modify this line to include the songSchema directly
+  songs: [{ type: Schema.Types.ObjectId, ref: 'songs' }] // 假设您有一个 Song 模型
 });
-
-const userSchema = new Schema({
+ 
+const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   firstName: String,
@@ -21,11 +14,10 @@ const userSchema = new Schema({
   dob: Date,
   role: {
     type: String,
-    enum: ['DJ', 'ADMIN', 'USER'],
-    default: 'USER',
+    enum: ["REVIEWER", "ADMIN", "USER"],
+    default: "USER"
   },
-  playlists: [playlistSchema],
+  playlists: [playlistSchema]
 },
-{ collection: 'users' });
-
+  { collection: "users" });
 export default userSchema;
