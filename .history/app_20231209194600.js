@@ -1,11 +1,9 @@
-import "dotenv/config";
-import session from "express-session";
-import express from 'express';
+import express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
 import SongRoutes from "./songs/routes.js";
 import UserRoutes from "./users/routes.js";
 import "dotenv/config";
-import mongoose from "mongoose";
 import session from "express-session";
 import PlaylistRoutes from "./playlists/routes.js";
 
