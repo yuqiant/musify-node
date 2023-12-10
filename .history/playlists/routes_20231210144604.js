@@ -42,23 +42,10 @@ function PlaylistRoutes(app) {
         }
     };
 
-    const getPlaylistDetails = async (req, res) => {
-        const { playlistId } = req.params;
 
-        try {
-            const playlist = await dao.findPlaylistById(playlistId).populate('songs');
-            if (!playlist) {
-                return res.status(404).send('Playlist not found');
-            }
 
-            res.json(playlist);
-        } catch (error) {
-            console.error('Error fetching playlist details:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    };
 
-    app.get('/playlists/:playlistId', getPlaylistDetails);
+
 
     app.post('/playlists/:playlistId/add-song', addSongToPlaylist);
 }
