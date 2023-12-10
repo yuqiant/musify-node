@@ -36,6 +36,39 @@ function SongRoutes(app) {
         }
     });
 
+    app.get('/api/songs', async (req, res) => {
+        try {
+            const songs = await dao.findAllSongs();
+            res.json(songs);
+        } catch (error) {
+            res.status(500).send('Internal Server Error');
+        }
+    });
+
+    app.put('/api/songs/:id', async (req, res) => {
+        try {
+            const songId = req.params.id;
+            const updatedSong = await dao.updateSong(songId, req.body);
+            if (updatedSong) {
+                res.json(updatedSong);
+            } else {
+                res.status(404).send('Song not found');
+            }
+        } catch (error) {
+            res.status(500).send('Internal Server Error');
+        }
+    });
+    
+    app.delete('/api/songs/:id', async (req, res) => {
+        try {
+            const songId = req.params.id;
+            await dao.deleteSong(songId);
+            res.status(200).send('Song deleted successfully');
+        } catch (error) {
+            res.status(500).send('Internal Server Error');
+        }
+    });    
+
     const findSongByIdHandler = async (req, res) => {
         try {
             const songId = req.params.id;
@@ -80,6 +113,8 @@ function SongRoutes(app) {
             res.status(500).send('Internal Server Error');
         }
     }
+
+    
     );
 }
 
