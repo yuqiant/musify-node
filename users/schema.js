@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   dob: Date,
   role: {
     type: String,
-    enum: ["REVIEWER", "ADMIN", "USER"],
+    enum: ["DJ", "ADMIN", "USER"],
     default: "USER"
   },
   playlists: [playlistSchema]
