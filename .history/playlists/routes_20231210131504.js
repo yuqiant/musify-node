@@ -27,16 +27,6 @@ function PlaylistRoutes(app) {
                 return res.status(404).send('Song not found');
             }
 
-            const songExists = playlist.songs.some(existingSong => existingSong._id.equals(songId));
-            if (!songExists) {
-                // Add the song details to the playlist
-                playlist.songs.push({ _id: song._id, songName: song.songName });
-                await playlist.save();
-                res.status(200).send('Song added to the playlist');
-            } else {
-                res.status(400).send('Song already in the playlist');
-            }
-
 
 
 

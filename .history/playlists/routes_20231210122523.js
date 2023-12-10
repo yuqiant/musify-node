@@ -1,7 +1,5 @@
 import * as dao from "./dao.js";
 
-import { findSongById } from '../songs/dao.js';
-
 function PlaylistRoutes(app) {
 
     const addSongToPlaylist = async (req, res) => {
@@ -27,29 +25,16 @@ function PlaylistRoutes(app) {
                 return res.status(404).send('Song not found');
             }
 
-            const songExists = playlist.songs.some(existingSong => existingSong._id.equals(songId));
-            if (!songExists) {
-                // Add the song details to the playlist
-                playlist.songs.push({ _id: song._id, songName: song.songName });
-                await playlist.save();
+
+
+            // Check if the song is already in the playlist
+            if (!playlist.songs.includes(songId)) {
+                playlist.songs.push(songId);
+                await playlist.save(); // Save the updated playlist
                 res.status(200).send('Song added to the playlist');
             } else {
                 res.status(400).send('Song already in the playlist');
             }
-
-
-
-
-
-
-            // // Check if the song is already in the playlist
-            // if (!playlist.songs.includes(songId)) {
-            //     playlist.songs.push(songId);
-            //     await playlist.save(); // Save the updated playlist
-            //     res.status(200).send('Song added to the playlist');
-            // } else {
-            //     res.status(400).send('Song already in the playlist');
-            // }
         } catch (error) {
             console.error('Error adding song to the playlist:', error);
             res.status(500).send('Error adding song to the playlist: ' + error.message);
