@@ -18,6 +18,23 @@ function SongRoutes(app) {
         res.json(artist)
     }
 
+        app.post('/api/songs', async (req, res) => {
+        try {
+            const newSong = await dao.addSong(req.body);
+            res.status(201).json(newSong);
+        } catch (error) {
+            res.status(500).send('Error adding song: ' + error.message);
+        }
+    });
+
+    app.post('/api/songs', async (req, res) => {
+        try {
+            const newSong = await dao.addSong(req.body);
+            res.status(201).json(newSong);
+        } catch (error) {
+            res.status(500).send('Error adding song: ' + error.message);
+        }
+    });
 
     const findSongByIdHandler = async (req, res) => {
         try {
@@ -63,15 +80,7 @@ function SongRoutes(app) {
             res.status(500).send('Internal Server Error');
         }
     }
-
-
-
-
     );
-
-
-
-
 }
 
 export default SongRoutes;

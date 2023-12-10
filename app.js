@@ -5,8 +5,7 @@ import cors from "cors";
 import SongRoutes from "./songs/routes.js";
 import UserRoutes from "./users/routes.js";
 import "dotenv/config";
-import session from "express-session";
-
+import mongoose from "mongoose";
 const app = express();
 const port = 4000;
 

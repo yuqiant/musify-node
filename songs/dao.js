@@ -5,6 +5,10 @@ export const findSongByAlbum = (album) => model.find({ albumName: album })
 export const findSongByArtist = (artist) => model.find({ artistName: artist })
 export const findSongByPlaylist = (playlist) => model.find({ playlistName: playlist })
 export const findSongById = (id) => model.findById(id);
+export const addSong = async (songData) => {
+  const song = new model(songData);
+  return await song.save();
+};
 
 export const createUser = (user) => model.create(user);
 export const findAllUsers = () => model.find();
