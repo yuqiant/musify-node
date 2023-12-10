@@ -79,23 +79,6 @@ function PlaylistRoutes(app) {
         }
     };
 
-    // update the playlist
-    app.put('/playlists/:playlistId', async (req, res) => {
-        const { playlistId } = req.params;
-        const { name, description } = req.body;
-
-        try {
-            const updatedPlaylist = await dao.updatePlaylistById(playlistId, { name, description });
-            if (!updatedPlaylist) {
-                return res.status(404).send('Playlist not found');
-            }
-            res.status(200).json(updatedPlaylist);
-        } catch (error) {
-            console.error('Error updating playlist:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    });
-
 
 
     app.get('/playlists/:playlistId', getPlaylistDetails);
