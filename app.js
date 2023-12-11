@@ -11,8 +11,10 @@ import PlaylistRoutes from "./playlists/routes.js";
 const app = express();
 const port = 4000;
 
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/musify';
+
 // mongoose.connect(CONNECTION_STRING);
-mongoose.connect("mongodb://127.0.0.1:27017/musify");
+mongoose.connect(CONNECTION_STRING);
 
 // app.use(cors({
 //     credentials: true,
