@@ -1,4 +1,5 @@
 import * as dao from "./dao.js";
+import * as UserDao from "../users/dao.js";
 
 import { findSongById } from '../songs/dao.js';
 
@@ -96,8 +97,33 @@ function PlaylistRoutes(app) {
         }
     });
 
+    const createPlaylist = async (req, res) => {
+        const { name, description, userId } = req.body;
+
+        try {
+            // 创建新的播放列表对象
+            const newPlaylist = await dao.createPlaylist({
+                name,
+                description,
+                userId, // 确保您的数据库模型支持这个字段
+                songs: [] // 初始化空的歌曲数组
+            });
+
+            // 保存播放列表
+            const savedPlaylist = await newPlaylist.save();
+
+            res.status(201).json(savedPlaylist);
+        } catch (error) {
+            console.error('Error creating new playlist:', error);
+            res.status(500).send('Error creating new playlist: ' + error.message);
+        }
+    };
 
 
+
+
+
+    app.post('/playlists', createPlaylist);
     app.get('/playlists/:playlistId', getPlaylistDetails);
     app.post('/playlists/:playlistId/add-song', addSongToPlaylist);
     app.delete('/playlists/:playlistId/songs/:songId', deleteSongFromPlaylist);

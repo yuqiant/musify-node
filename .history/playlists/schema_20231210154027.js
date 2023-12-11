@@ -11,10 +11,6 @@ const playlistSchema = new mongoose.Schema({
         required: true,
         ref: 'users' // 假设您有一个 User 模型
     },
-    description: {
-        type: String,
-        required: true
-    },
     songs: [{
         // type: mongoose.Schema.Types.ObjectId,
         // ref: 'songs' // 假设您有一个 Song 模型并且想要创建关联
