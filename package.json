@@ -5,7 +5,7 @@
   "description": "Node.js HTTP web server for the musify application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "engines": {
