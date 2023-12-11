@@ -99,9 +99,9 @@ function SongRoutes(app) {
                 console.log(albums)
                 res.json(albums)
             } else if (type == "Artists") {
-                const artists = await dao.findSongByArtist(query)
-                console.log(artists)
-                res.json(artists)
+                const playlists = await dao.findSongByPlaylist(query)
+                console.log(playlists)
+                res.json(playlists)
             }
 
 
