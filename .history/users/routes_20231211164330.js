@@ -111,7 +111,6 @@ function UserRoutes(app) {
       const newPlaylist = await dao.createUserPlaylist(userId, playlistData);
       res.status(201).json(newPlaylist); // 发送新播放列表数据
     } catch (error) {
-      console.log("playlist here", playlistData);
       res.status(500).send('Error creating playlist: ' + error.message);
     }
   });

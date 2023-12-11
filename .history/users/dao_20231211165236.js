@@ -25,7 +25,7 @@ export const createUserPlaylist = async (userId, playlistData) => {
       throw new Error('User not found');
     }
 
-    const newPlaylist = await PlaylistModel.create(playlistData);
+    const newPlaylist = PlaylistModel.create(playlistData);
     user.playlists.push(newPlaylist);
 
     // 保存更新后的用户文档

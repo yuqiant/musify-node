@@ -103,7 +103,7 @@ function UserRoutes(app) {
   //   }
   // };
 
-  app.post("/api/users/:userId/playlists", async (req, res) => {
+  app.put("/api/users/:userId/playlists", async (req, res) => {
     const { userId } = req.params;
     const playlistData = req.body; // 包含播放列表名称和其他字段
 
@@ -111,7 +111,6 @@ function UserRoutes(app) {
       const newPlaylist = await dao.createUserPlaylist(userId, playlistData);
       res.status(201).json(newPlaylist); // 发送新播放列表数据
     } catch (error) {
-      console.log("playlist here", playlistData);
       res.status(500).send('Error creating playlist: ' + error.message);
     }
   });

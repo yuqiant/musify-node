@@ -1,0 +1,1 @@
+export DB_CONNECTION_STRING='mongodb+srv://5610final:musify@cluster0.ha5pjom.mongodb.net/?retryWrites=true&w=majority'

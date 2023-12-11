@@ -80,36 +80,19 @@ function PlaylistRoutes(app) {
     };
 
     // update the playlist
-    // app.put('/playlists/:playlistId', async (req, res) => {
-    //     const { playlistId } = req.params;
-    //     const { name, description } = req.body;
-
-    //     try {
-    //         const updatedPlaylist = await dao.updatePlaylistById(playlistId, { name, description });
-    //         if (!updatedPlaylist) {
-    //             return res.status(404).send('Playlist not found');
-    //         }
-    //         res.status(200).json(updatedPlaylist);
-    //     } catch (error) {
-    //         console.error('Error updating playlist:', error);
-    //         res.status(500).send('Internal Server Error');
-    //     }
-    // });
-
-    app.post('/api/playlists', async (req, res) => {
-        const { userId, name, description } = req.body;
+    app.put('/playlists/:playlistId', async (req, res) => {
+        const { playlistId } = req.params;
+        const { name, description } = req.body;
 
         try {
-            const newPlaylist = await dao.createPlaylist({
-                userId,
-                name,
-                description,
-                songs: [] // 初始为空的歌曲列表
-            });
-            res.status(201).json(newPlaylist);
+            const updatedPlaylist = await dao.updatePlaylistById(playlistId, { name, description });
+            if (!updatedPlaylist) {
+                return res.status(404).send('Playlist not found');
+            }
+            res.status(200).json(updatedPlaylist);
         } catch (error) {
-            console.error('Error creating new playlist:', error);
-            res.status(500).send('Error creating new playlist: ' + error.message);
+            console.error('Error updating playlist:', error);
+            res.status(500).send('Internal Server Error');
         }
     });
 
