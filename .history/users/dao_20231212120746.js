@@ -30,17 +30,16 @@ export const createUserPlaylist = async (userId, playlistData) => {
   }
 };
 
-export const removePlaylistFromAllUsers = async (playlistId, userId) => {
-
+export const removePlaylistFromAllUsers = async (playlistId) => {
   try {
-    console.log('Attempting to remove playlist from user:', userId);
-    await model.updateOne(
-      { _id: userId },
-      { $pull: { playlists: { _id: playlistId } } },
+    console.log('Attempting to remove playlist from all users:', playlistId);
+    await model.updateMany(
+      {}, // 空的查询条件表示更新所有文档
+      { $pull: { playlists: { _id: playlistId } } }
     );
-    console.log("playlist has been deleted is:", userId)
   } catch (error) {
-    console.error('Error removing playlist from user:', userId, error);
+    console.error('Error removing playlist from users:', error);
+
     throw error;
   }
 };
