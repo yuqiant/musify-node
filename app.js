@@ -14,7 +14,8 @@ const port = 4000;
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/musify';
 
 // mongoose.connect(CONNECTION_STRING);
-mongoose.connect(CONNECTION_STRING);
+// mongoose.connect(CONNECTION_STRING);
+mongoose.connect('mongodb://127.0.0.1:27017/musify');
 
 // app.use(cors({
 //     credentials: true,
@@ -22,13 +23,13 @@ mongoose.connect(CONNECTION_STRING);
 // }));
 app.use(express.json())
 // @@ YQ
-// app.use(cors());
+app.use(cors());
 
-const corsOptions = {
-  origin: 'http://localhost:3000', // or the specific origin you want to allow
-  credentials: true, // to allow cookies and sessions
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: 'http://localhost:3000', // or the specific origin you want to allow
+//   credentials: true, // to allow cookies and sessions
+// };
+// app.use(cors(corsOptions));
 
 // @@ FRANK
 // app.use(cors({
