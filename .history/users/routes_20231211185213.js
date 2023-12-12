@@ -1,4 +1,5 @@
 import * as dao from "./dao.js";
+// let currentUser = null;
 
 function UserRoutes(app) {
   const createUser = async (req, res) => {
@@ -89,17 +90,29 @@ function UserRoutes(app) {
     }
   };
 
+  // const createUserPlaylist = async (req, res) => {
+  //   const { userId } = req.params;
+  //   const playlistData = req.body; // This should contain the name and possibly other fields for the playlist
+
+  //   try {
+  //     const updatedUser = await dao.createUserPlaylist(userId, playlistData);
+  //     // Send back the new playlist data - you may choose to send the entire updated user document or just the new playlist
+  //     res.status(201).json(updatedUser.playlists.pop()); // Send the last item in the playlists array, which should be the new playlist
+  //   } catch (error) {
+  //     res.status(500).send('Error creating playlist: ' + error.message);
+  //   }
+  // };
 
   app.post("/api/users/:userId/playlists", async (req, res) => {
     const { userId } = req.params;
-    const playlistData = req.body;
+    const playlistData = req.body; // 包含播放列表名称和其他字段
     console.log('Received playlist data:', req.body);
 
 
 
     try {
       const newPlaylist = await dao.createUserPlaylist(userId, playlistData);
-      res.status(201).json(newPlaylist);
+      res.status(201).json(newPlaylist); // 发送新播放列表数据
     } catch (error) {
       console.log("playlist here", playlistData);
       res.status(500).send('Error creating playlist: ' + error.message);
@@ -107,6 +120,7 @@ function UserRoutes(app) {
   });
 
 
+  // app.post("/api/users/:userId/playlists", createUserPlaylist);
 
   app.post("/api/users", createUser);
   app.get("/api/users", findAllUsers);
