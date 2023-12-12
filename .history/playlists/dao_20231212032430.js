@@ -10,7 +10,14 @@ export const createPlaylist = async (playlistData) => {
     return model.create(playlistData);
 };
 
-export const deletePlaylist = async (playlistId) => {
-    return await model.findByIdAndDelete(playlistId);
+export const removePlaylistFromAllUsers = async (playlistId) => {
+    try {
+        console.log('Attempting to remove playlist from all users:', playlistId);
+        await model.updateMany(
+            {}, // 空的查询条件表示更新所有文档
+            { $pull: { playlists: playlistId } }
+        );
+    } catch (error) {
+        throw error;
+    }
 };
-

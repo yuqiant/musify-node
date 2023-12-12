@@ -132,14 +132,7 @@ function UserRoutes(app) {
           description: playlistData.description,
           songs: []
         });
-        const playlistInfo = {
-          _id: newPlaylist._id, // 或 newPlaylist.id
-          name: newPlaylist.name,
-          songs: newPlaylist.songs
-        };
-
-        // 将新对象添加到用户的播放列表数组中
-        user.playlists.push(playlistInfo);
+        user.playlists.push(newPlaylist);
         await user.save();
       } else {
         // 如果找到已存在的播放列表，确保它已经在用户的 playlists 数组中

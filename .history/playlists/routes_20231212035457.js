@@ -92,7 +92,6 @@ function PlaylistRoutes(app) {
                 description,
                 songs: [] // 初始为空的歌曲列表
             });
-            console.log("the playlist creating now:", newPlaylist);
             res.status(201).json(newPlaylist);
         } catch (error) {
             console.error('Error creating new playlist:', error);
