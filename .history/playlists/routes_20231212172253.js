@@ -61,8 +61,8 @@ function PlaylistRoutes(app) {
     };
 
     const deleteSongFromPlaylist = async (req, res) => {
-        const { playlistId, songId } = req.params;
-
+        const { playlistId, songId, userId } = req.params;
+        console.log("delete song from the user:", userId)
         try {
             const playlist = await dao.findPlaylistById(playlistId);
             if (!playlist) {
@@ -89,7 +89,7 @@ function PlaylistRoutes(app) {
                 userId,
                 name,
                 description,
-                songs: []
+                songs: [] // 初始为空的歌曲列表
             });
             console.log("the playlist creating now:", newPlaylist);
             res.status(201).json(newPlaylist);
@@ -101,14 +101,14 @@ function PlaylistRoutes(app) {
 
     app.delete('/api/playlists/:playlistId', async (req, res) => {
         const { playlistId } = req.params;
-        const { userId } = req.body;
-
         console.log('Deleting playlist with ID:', req.params.playlistId);
 
         try {
+            // 删除播放列表
             await dao.deletePlaylist({ _id: playlistId });
 
-            await UserModel.removePlaylistFromAllUsers(playlistId, userId);
+            // 从所有用户中移除这个播放列表
+            await UserModel.removePlaylistFromAllUsers(playlistId);
 
             res.status(200).send('Playlist deleted successfully');
         } catch (error) {
